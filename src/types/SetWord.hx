@@ -1,0 +1,14 @@
+package types;
+
+using util.NullTools;
+
+import types.base.Symbol;
+import types.base.Context;
+
+class SetWord extends Symbol {
+	override function copyWith(?context: Context, ?offset: Int): SetWord {
+		return new SetWord(this.name, context.getOrElse(this.context), offset);
+	}
+
+	override public function typeOf() return ValueKind.KSetWord;
+}
