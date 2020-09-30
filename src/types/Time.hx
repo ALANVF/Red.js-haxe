@@ -11,5 +11,5 @@ class Time extends Value {
 		this.seconds = seconds;
 	}
 
-	override public function typeOf() return ValueKind.KTime;
+	override public function getKind() return ValueKind.KTime(this);
 }

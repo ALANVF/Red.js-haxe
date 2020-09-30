@@ -1,6 +1,6 @@
 package types.base;
 
 interface IDatatype {
-	public function typeOf(): ValueKind;
+	public function getKind(): ValueKind;
 	public function matchesTypeOfValue(value: Value): Bool;
 }

@@ -11,5 +11,5 @@ class Url extends _String {
 		return new Url(values, index);
 	}
 
-	override public function typeOf() return ValueKind.KUrl;
+	override public function getKind() return ValueKind.KUrl(this);
 }

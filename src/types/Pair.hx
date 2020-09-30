@@ -9,5 +9,5 @@ class Pair extends Value {
 		this.y = y;
 	}
 
-	override public function typeOf() return ValueKind.KPair;
+	override public function getKind() return ValueKind.KPair(this);
 }

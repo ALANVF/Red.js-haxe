@@ -9,5 +9,5 @@ class Unset extends Value {
 		return false;
 	}*/
 
-	override public function typeOf() return ValueKind.KUnset;
+	override public function getKind() return ValueKind.KUnset(this);
 }

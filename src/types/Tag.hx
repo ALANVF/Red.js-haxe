@@ -11,5 +11,5 @@ class Tag extends _String {
 		return new Tag(values, index);
 	}
 
-	override public function typeOf() return ValueKind.KTag;
+	override public function getKind() return ValueKind.KTag(this);
 }

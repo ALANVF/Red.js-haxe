@@ -129,5 +129,5 @@ class Native extends _Function {
 		this.fn = fn;
 	}
 
-	override public function typeOf() return ValueKind.KNative;
+	override public function getKind() return ValueKind.KNative(this);
 }

@@ -7,7 +7,7 @@ class Value {
 		return true;
 	}
 
-	public function typeOf() return ValueKind.KValue;
+	public function getKind() return ValueKind.KValue(this);
 
 	public inline function isA(type: IDatatype) {
 		return type.matchesTypeOfValue(this);

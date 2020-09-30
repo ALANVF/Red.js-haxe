@@ -11,5 +11,5 @@ class String extends _String {
 		return new String(values, index);
 	}
 
-	override public function typeOf() return ValueKind.KString;
+	override public function getKind() return ValueKind.KString(this);
 }

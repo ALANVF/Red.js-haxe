@@ -13,5 +13,5 @@ class Tuple extends Value {
 		}
 	}
 
-	override public function typeOf() return ValueKind.KTuple;
+	override public function getKind() return ValueKind.KTuple(this);
 }

@@ -18,5 +18,5 @@ class Logic extends Value {
 		return this.cond;
 	}
 
-	override public function typeOf() return ValueKind.KLogic;
+	override public function getKind() return ValueKind.KLogic(this);
 }

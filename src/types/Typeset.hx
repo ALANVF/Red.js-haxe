@@ -10,11 +10,11 @@ class Typeset extends Value implements IDatatype {
 		this.types = new Set();
 
 		for(type in types) {
-			switch type.typeOf() {
-				case KDatatype:
-					this.types.add(cast type);
-				case KTypeset:
-					for(type_ in cast(type, Typeset).types) {
+			switch type.getKind() {
+				case KDatatype(dt):
+					this.types.add(dt);
+				case KTypeset(ts):
+					for(type_ in ts.types) {
 						this.types.add(type_);
 					}
 				default:
@@ -22,7 +22,7 @@ class Typeset extends Value implements IDatatype {
 		}
 	}
 
-	override public function typeOf() return ValueKind.KTypeset;
+	override public function getKind() return ValueKind.KTypeset(this);
 
 	public function matchesTypeOfValue(value: Value) {
 		return Lambda.exists(this.types, t -> t.matchesTypeOfValue(value));

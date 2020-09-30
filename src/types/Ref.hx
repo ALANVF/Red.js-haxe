@@ -11,5 +11,5 @@ class Ref extends _String {
 		return new Ref(values, index);
 	}
 
-	override public function typeOf() return ValueKind.KRef;
+	override public function getKind() return ValueKind.KRef(this);
 }

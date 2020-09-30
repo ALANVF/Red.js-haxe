@@ -9,5 +9,5 @@ class None extends Value {
 		return false;
 	}
 
-	override public function typeOf() return ValueKind.KNone;
+	override public function getKind() return ValueKind.KNone(this);
 }

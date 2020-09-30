@@ -10,5 +10,5 @@ class SetWord extends Symbol {
 		return new SetWord(this.name, context.getOrElse(this.context), offset);
 	}
 
-	override public function typeOf() return ValueKind.KSetWord;
+	override public function getKind() return ValueKind.KSetWord(this);
 }

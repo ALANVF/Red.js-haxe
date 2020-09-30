@@ -10,5 +10,5 @@ class Word extends Symbol {
 		return new Word(this.name, context.getOrElse(this.context), offset);
 	}
 
-	override public function typeOf() return ValueKind.KWord;
+	override public function getKind() return ValueKind.KWord(this);
 }
