@@ -2,9 +2,6 @@ Types:
 - money!
 	- https://github.com/red/red/blob/master/runtime/datatypes/money.reds
 - date!
-- action!
-- op!
-- function!
 - vector!
 - error!
 - image!
