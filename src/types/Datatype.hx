@@ -3,6 +3,8 @@ package types;
 import types.base.IDatatype;
 
 class Datatype extends Value implements IDatatype {
+	static final DATATYPES: std.Map<std.String, Datatype> = [];
+
 	public var name: std.String; // maybe remove this
 	public var kind: Int;
 

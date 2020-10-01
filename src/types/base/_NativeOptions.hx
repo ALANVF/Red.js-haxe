@@ -14,8 +14,8 @@ typedef NCaseOptions = {
 
 typedef NDoOptions = {
 	expand: Bool,
-	args: Null<{arg: Value}>,
-	next: Null<{position: Word}>
+	args:   Null<{arg: Value}>,
+	next:   Null<{position: Word}>
 }
 
 typedef NReduceOptions = {
@@ -29,15 +29,15 @@ typedef NComposeOptions = {
 }
 
 typedef NGetOptions = {
-	any: Bool,
+	any:   Bool,
 	_case: Bool
 }
 
 typedef NSetOptions = {
-	any: Bool,
+	any:   Bool,
 	_case: Bool,
-	only: Bool,
-	some: Bool
+	only:  Bool,
+	some:  Bool
 }
 
 typedef NType_qOptions = {
@@ -55,17 +55,17 @@ typedef NBindOptions = {
 
 typedef NParseOptions = {
 	_case: Bool,
-	part: Null<{length: Value}>,
+	part:  Null<{length: Value}>,
 	trace: Null<{callback: Function}>
 }
 
 typedef NSetOpOptions = {
 	_case: Bool,
-	skip: Null<{size: Integer}>
+	skip:  Null<{size: Integer}>
 }
 
 typedef NShiftOptions = {
-	left: Bool,
+	left:    Bool,
 	logical: Bool
 }
 
@@ -123,56 +123,56 @@ typedef NChecksumOptions = {
 }
 
 typedef NNewLineOptions = {
-	all: Bool,
+	all:  Bool,
 	skip: Null<{size: Integer}>
 }
 
 typedef NNowOptions = {
-	year: Bool,
-	month: Bool,
-	day: Bool,
-	time: Bool,
-	zone: Bool,
-	date: Bool,
+	year:    Bool,
+	month:   Bool,
+	day:     Bool,
+	time:    Bool,
+	zone:    Bool,
+	date:    Bool,
 	weekday: Bool,
 	yearday: Bool,
 	precise: Bool,
-	utc: Bool
+	utc:     Bool
 }
 
 typedef NCallOptions = {
-	wait: Bool,
-	show: Bool,
+	wait:    Bool,
+	show:    Bool,
 	console: Bool,
-	shell: Bool,
-	input: Null<{_in: Value}>,
-	output: Null<{out: Value}>,
-	error: Null<{err: Value}>
+	shell:   Bool,
+	input:   Null<{_in: Value}>,
+	output:  Null<{out: Value}>,
+	error:   Null<{err: Value}>
 }
 
 typedef NCompressOptions = {
-	zlib: Bool,
+	zlib:    Bool,
 	deflate: Bool
 }
 
 typedef NDecompressOptions = {
-	zlib: Null<{size: Integer}>,
+	zlib:    Null<{size: Integer}>,
 	deflate: Null<{size: Integer}>
 }
 
 typedef NRecycleOptions = {
-	on: Bool,
+	on:  Bool,
 	off: Bool
 }
 
 typedef NTranscodeOptions = {
-	next: Bool,
-	one: Bool,
+	next:    Bool,
+	one:     Bool,
 	prescan: Bool,
-	scan: Bool,
-	part: Null<{length: Value}>,
-	into: Null<{dst: Value}>,
-	trace: Null<{callback: Function}>
+	scan:    Bool,
+	part:    Null<{length: Value}>,
+	into:    Null<{dst: Value}>,
+	trace:   Null<{callback: Function}>
 }
 
 typedef _NativeOptions = {}

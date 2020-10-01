@@ -1,5 +1,6 @@
 package types;
 
+import types.base.IFunction;
 import types.base._Function;
 import types.base._Number;
 import types.base._String;
@@ -7,9 +8,9 @@ import types.base.Symbol;
 import types.base._Block;
 import types.base._NativeOptions;
 
-typedef CompareFn = (value1: Value, value2: Value) -> Logic;
-typedef SetOpFn = (set1: Value, set2: Value, options: NSetOpOptions) -> Value;
-typedef TrigFn = (value: _Number, options: NTrigOptions) -> Float;
+private typedef CompareFn = (value1: Value, value2: Value) -> Logic;
+private typedef SetOpFn = (set1: Value, set2: Value, options: NSetOpOptions) -> Value;
+private typedef TrigFn = (value: _Number, options: NTrigOptions) -> Float;
 
 enum NativeFn {
 	NIf(fn: (cond: Value, thenBlk: Block) -> Value);
@@ -59,6 +60,7 @@ enum NativeFn {
 	NExclude(fn: SetOpFn);
 	NComplement_q(fn: (bits: Bitset) -> Logic);
 	NDehex(fn: (value: _String) -> String);
+	//NEnhex(fn: (value: _String) -> String);
 	NNegative_q(fn: (number: Value) -> Logic);
 	NPositive_q(fn: (number: Value) -> Logic);
 	NMax(fn: (value1: Value, value2: Value) -> Value);
@@ -122,7 +124,7 @@ class Native extends _Function {
 
 	public final fn: NativeFn;
 
-	public function new(args: Array<_Arg>, refines: Array<_Refine>, retSpec: Null<Block>, fn: NativeFn) {
+	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>, fn: NativeFn) {
 		this.args = args;
 		this.refines = refines;
 		this.retSpec = retSpec;

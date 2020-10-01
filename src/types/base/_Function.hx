@@ -2,30 +2,31 @@ package types.base;
 
 using util.ArrayTools;
 
-@:structInit class _Refine {
-	public final name: std.String;
-	public final doc: Null<std.String> = null;
-	public final args: Array<_Arg> = [];
-}
-
-@:structInit class _Arg {
-	public final name: std.String;
-	public final spec: Null<Block> = null;
-	public final doc: Null<std.String> = null;
-}
+import types.base.IFunction;
 
 /*abstract class _Function extends Value {
-	public final args: Array<_Arg>;
-	public final refines: Array<_Refine>;
+	public final args: _Args;
+	public final refines: _Refines;
 	public final returnSpec: Null<Block>;
 }*/
-class _Function extends Value {
-	public var args: Array<_Arg>;
-	public var refines: Array<_Refine>;
-	public var retSpec: Null<Block>;
+class _Function extends Value implements IFunction {
+	var _args: _Args;
+	public var args(get, set): _Args;
+	function get_args() return _args;
+	function set_args(v: _Args) return _args = v;
+	
+	var _refines: _Refines;
+	public var refines(get, set): _Refines;
+	function get_refines() return _refines;
+	function set_refines(v: _Refines) return _refines = v;
+
+	var _retSpec: Null<Block>;
+	public var retSpec(get, set): Null<Block>;
+	function get_retSpec() return _retSpec;
+	function set_retSpec(v: Null<Block>) return _retSpec = v;
 
 	public var arity(get, never): Int;
-	inline function get_arity() return this.args.length;
+	function get_arity() return this.args.length;
 
 	public function arityWithRefines(refines: Iterable<std.String>) {
 		var nargs = this.arity;

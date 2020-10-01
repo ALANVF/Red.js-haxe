@@ -23,8 +23,8 @@ enum ValueKind {
 	KRefinement(v: Refinement);
 	KIssue(v: Issue);
 	KNative(v: Native);
-	//KAction(v: Action);
-	//KOp(v: Op);
+	KAction(v: Action);
+	KOp(v: Op);
 	KFunction(v: Function);
 	KPath(v: Path);
 	KLitPath(v: LitPath);
