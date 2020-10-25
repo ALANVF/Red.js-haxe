@@ -48,7 +48,7 @@ enum ValueKind {
 	KTag(v: Tag);
 	KEmail(v: Email);
 	//KHandle(v: Handle);
-	//KDate(v: Date);
+	KDate(v: Date);
 	//KPort(v: Port);
 	//KImage(v: Image);
 	//KEvent(v: Event);

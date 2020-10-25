@@ -17,14 +17,14 @@ Haxe, on the other hand, is a very powerful language that not only compiles to J
 - everything is an expression, which can greatly reduce code size.
 
 That being said, Haxe does have a few downsides:
-- no array splats (`...`)
+- requires more boilerplate due to its small standard library
 - no support for abstract classes (although it's supposedly available in the nightly builds)
+- null safety is essentially non-existent (and you can't overload postifx `!` without macros??)
+- no array splats (`...`)
+- no type refinement/narrowing
 - no polymorphic `this` type
 - pattern matching extractors exponentially increase codegen (wtf?)
-- no type refinement/narrowing
-- no untagged unions
-- null safety is essentially non-existent (and you can't overload postifx `!` without macros??)
-- requires more boilerplate due to its small standard library
 - function overloading is (currently) only allowed for externs
+- no untagged unions
 
 Despite these issues, Haxe has been much nicer to work with, and gave me a chance to fix a lot of things that I had originally implemented incorrectly.

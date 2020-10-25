@@ -1,7 +1,7 @@
 Types:
 - money!
 	- https://github.com/red/red/blob/master/runtime/datatypes/money.reds
-- date!
+- date! (in-progress)
 - vector!
 - error!
 - image!
