@@ -18,7 +18,7 @@ class _SeriesOf<T: Value> extends Value implements SeriesOf<T> {
 
 	public function new(values: Array<T>, ?index: Int) {
 		this.values = values;
-		this.index = NullTools.getOrElse(index, 0);
+		this.index = index.getOrElse(0);
 	}
 
 	function clone(values: Array<T>, ?index: Null<Int>): _SeriesOf<T> { // ugh, can't wait for polymorphic `this` types

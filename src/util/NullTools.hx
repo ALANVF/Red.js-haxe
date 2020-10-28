@@ -17,7 +17,10 @@ import haxe.macro.Expr;
 */
 
 class NullTools {
-	public static macro function getOrElse<T>(value: ExprOf<Null<T>>, other: ExprOf<T>): ExprOf<T> {
+	public static macro function getOrElse<T>(
+		value: haxe.macro.ExprOf<haxe.extern.EitherType<{}, Null<T>>>,
+		other: haxe.macro.ExprOf<T>
+	): haxe.macro.ExprOf<T> {
 		final tmp = Context.newTempVar();
 		final type = ECheckType(
 			(macro $i{tmp}),
@@ -26,14 +29,16 @@ class NullTools {
 				default: throw "error!";
 			}
 		);
-
-		return macro $b{[
-			{macro final $tmp = $value;},
-			macro if($i{tmp} != null) ${{expr: type, pos: Context.currentPos()}} else $other
-		]};
+		
+		return macro {
+			final $tmp = $value;
+			if($i{tmp} != null) ${{expr: type, pos: Context.currentPos()}} else $other;
+		}
 	}
 
-	public static macro function notNull<T>(value: ExprOf<Null<T>>): ExprOf<T> {
+	public static macro function notNull<T>(
+		value: haxe.macro.ExprOf<haxe.extern.EitherType<{}, Null<T>>>
+	): haxe.macro.ExprOf<T> {
 		final tmp = Context.newTempVar();
 		final type = ECheckType(
 			(macro $i{tmp}),

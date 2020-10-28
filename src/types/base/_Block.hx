@@ -9,7 +9,7 @@ class _Block extends _SeriesOf<Value> {
 	
 	override public function new(values: Array<Value>, ?index: Int, ?newlines: Set<Int>) {
 		super(values, index);
-		this.newlines = NullTools.getOrElse(newlines, new Set());
+		this.newlines = newlines.getOrElse(new Set());
 	}
 
 	function cloneBlock(values: Array<Value>, ?index: Int, ?newlines: Set<Int>): _Block { // ugh, can't wait for polymorphic `this` types
