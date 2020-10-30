@@ -32,5 +32,10 @@ class Main {
 		trace(bs);
 		trace([for(i in 1...11) bs.hasBit(i)]);
 		trace(types.Object, types.base._Function);
+
+		var word = new types.Word("word");
+		trace(word);
+		trace(word.getKind());
+		trace(word.getTypeKind());
 	}
 }

@@ -1,7 +1,7 @@
 package types;
 
 enum ValueKind {
-	KValue(v: Value);
+	//KValue(v: Value);
 	KDatatype(v: Datatype);
 	KUnset(v: Unset);
 	KNone(v: None);

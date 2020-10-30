@@ -7,7 +7,7 @@ class Symbol extends Value {
 	public var context: Context;
 	public var offset: Int;
 
-	override public function new(name: std.String, ?context: Context, ?offset: Int) {
+	public function new(name: std.String, ?context: Context, ?offset: Int) {
 		this.name = name;
 		this.context = context.getOrElse(Context.GLOBAL);
 		this.offset = offset.getOrElse(this.context.symbols.length);
