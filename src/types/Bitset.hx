@@ -12,8 +12,6 @@ class Bitset extends Value {
 		this.negated = negated;
 	}
 
-	override public function getKind() return ValueKind.KBitset(this);
-
 	public static function alloc(size: Int, negated: Bool = false) {
 		final bytes = Bytes.alloc(size);
 		bytes.fill(0, size, 0);

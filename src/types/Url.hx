@@ -10,6 +10,4 @@ class Url extends _String {
 	override function clone(values: Array<Char>, ?index: Int) {
 		return new Url(values, index);
 	}
-
-	override public function getKind() return ValueKind.KUrl(this);
 }

@@ -12,6 +12,4 @@ class Function extends _Function {
 		this.retSpec = retSpec;
 		this.body = body;
 	}
-
-	override public function getKind() return ValueKind.KFunction(this);
 }

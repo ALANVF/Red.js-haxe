@@ -11,8 +11,6 @@ class Char extends Value {
 		this.code = code;
 	}
 
-	override public function getKind() return ValueKind.KChar(this);
-
 	public static inline function fromCode(code: Int): Char {
 		return if(chars[code] != null) {
 			chars[code];

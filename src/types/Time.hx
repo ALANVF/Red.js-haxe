@@ -15,6 +15,4 @@ class Time extends Value {
 		this.seconds = seconds;
 		this.signed = signed;
 	}
-
-	override public function getKind() return ValueKind.KTime(this);
 }

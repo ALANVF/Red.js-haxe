@@ -30,6 +30,4 @@ class Op extends Value implements IFunction {
 	}
 
 	public function arityWithRefines(refines: Iterable<std.String>) return 2;
-
-	override public function getKind() return ValueKind.KOp(this);
 }

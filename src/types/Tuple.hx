@@ -12,6 +12,4 @@ class Tuple extends Value {
 			this.values = values;
 		}
 	}
-
-	override public function getKind() return ValueKind.KTuple(this);
 }

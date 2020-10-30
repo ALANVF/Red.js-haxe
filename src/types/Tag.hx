@@ -10,6 +10,4 @@ class Tag extends _String {
 	override function clone(values: Array<Char>, ?index: Int) {
 		return new Tag(values, index);
 	}
-
-	override public function getKind() return ValueKind.KTag(this);
 }

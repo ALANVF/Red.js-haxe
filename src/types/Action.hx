@@ -97,6 +97,4 @@ class Action extends _Function {
 		this.retSpec = retSpec;
 		this.fn = fn;
 	}
-
-	override public function getKind() return ValueKind.KAction(this);
 }

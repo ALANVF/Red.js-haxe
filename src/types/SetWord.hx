@@ -9,6 +9,4 @@ class SetWord extends Symbol {
 	override function copyWith(?context: Context, ?offset: Int): SetWord {
 		return new SetWord(this.name, context.getOrElse(this.context), offset);
 	}
-
-	override public function getKind() return ValueKind.KSetWord(this);
 }

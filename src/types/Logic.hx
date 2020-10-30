@@ -17,6 +17,4 @@ class Logic extends Value {
 	override public function isTruthy() {
 		return this.cond;
 	}
-
-	override public function getKind() return ValueKind.KLogic(this);
 }

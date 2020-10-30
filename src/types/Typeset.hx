@@ -22,8 +22,6 @@ class Typeset extends Value implements IDatatype {
 		}
 	}
 
-	override public function getKind() return ValueKind.KTypeset(this);
-
 	public function matchesTypeOfValue(value: Value) {
 		return Lambda.exists(this.types, t -> t.matchesTypeOfValue(value));
 	}

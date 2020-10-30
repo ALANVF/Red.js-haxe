@@ -12,6 +12,4 @@ class Word extends Symbol {
 	override public function copyWith(?context: Context, ?offset: Int): Word {
 		return new Word(this.name, context.getOrElse(this.context), offset);
 	}
-
-	override public function getKind() return ValueKind.KWord(this);
 }

@@ -47,6 +47,4 @@ class Date extends Value {
 	public function new(date: std.Date) {
 		this.repr = date;
 	}
-
-	override function getKind() return ValueKind.KDate(this);
 }

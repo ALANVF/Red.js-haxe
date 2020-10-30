@@ -10,6 +10,4 @@ class Ref extends _String {
 	override function clone(values: Array<Char>, ?index: Int) {
 		return new Ref(values, index);
 	}
-
-	override public function getKind() return ValueKind.KRef(this);
 }

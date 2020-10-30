@@ -14,6 +14,4 @@ class Binary extends Value implements SeriesOf<Integer> {
 		
 	}
 }*/
-class Binary extends _SeriesOf<Integer> {
-	override public function getKind() return ValueKind.KBinary(this);
-}
+class Binary extends _SeriesOf<Integer> {}

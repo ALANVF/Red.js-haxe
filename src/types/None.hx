@@ -8,6 +8,4 @@ class None extends Value {
 	override function isTruthy(): Bool {
 		return false;
 	}
-
-	override public function getKind() return ValueKind.KNone(this);
 }
