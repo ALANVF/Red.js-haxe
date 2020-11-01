@@ -1,5 +1,11 @@
 package types.base;
 
+enum QuotingKind {
+	QVal;
+	QGet;
+	QLit;
+}
+
 @:structInit class _Refine {
 	public final name: std.String;
 	public final doc: Null<std.String> = null;
@@ -8,6 +14,7 @@ package types.base;
 
 @:structInit class _Arg {
 	public final name: std.String;
+	public final quoting: QuotingKind;
 	public final spec: Null<Block> = null;
 	public final doc: Null<std.String> = null;
 }
