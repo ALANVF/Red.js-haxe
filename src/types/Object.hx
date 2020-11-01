@@ -1,10 +1,12 @@
 package types;
 
+import types.base.IGetPath;
+import types.base.Context;
+import haxe.ds.Option;
+
 using util.NullTools;
 
-import types.base.Context;
-
-class Object extends Value {
+class Object extends Value implements IGetPath {
 	public static var maxID: Int = 0;
 
 	public final ctx: Context;
@@ -17,5 +19,13 @@ class Object extends Value {
 
 	public static inline function fromObject(obj: Object) {
 		return new Object(obj.ctx, obj.id);
+	}
+
+	public function getPath(access: Value) {
+		return switch access.KIND {
+			case KWord(w) if(ctx.containsSymbol(w)): Some(ctx.getSymbol(w));
+			case KLitWord(w) if(ctx.containsSymbol(w)): Some(ctx.getSymbol(w));
+			default: None;
+		};
 	}
 }

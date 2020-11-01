@@ -1,50 +1,84 @@
 package types;
 
-using DateTools;
+import types.base.IGetPath;
+import haxe.ds.Option;
+import haxe.ds.Either;
 
-class Date extends Value {
-	public var repr: std.Date;
+using DateTools;
+using util.OptionTools;
+
+class Date extends Value implements IGetPath {
+	public static final ACCESSORS = [
+		"date", "year", "month", "day", "zone",
+		"time", "hour", "minute", "second", "weekday",
+		"yearday", "julian", "timezone", "week", "isoweek"
+	];
+
+	public var date: std.Date;
 	public var zone: Time;
-	
-	public var date(get, never): Date;
-	function get_date() {
-		return new Date(new std.Date(year, month, day, 0, 0, 0));
+
+	public function new(date: std.Date) {
+		this.date = date;
 	}
 
-	public var year(get, never): Int;
-	inline function get_year() return repr.getFullYear();
+	public function getDate() {
+		return new Date(new std.Date(getYear(), getMonth(), getDay(), 0, 0, 0));
+	}
 
-	public var month(get, never): Int;
-	inline function get_month() return repr.getMonth() + 1;
+	public inline function getYear() return date.getFullYear();
 
-	public var day(get, never): Int;
-	inline function get_day() return repr.getDate();
+	public inline function getMonth() return date.getMonth() + 1;
+
+	public inline function getDay() return date.getDate();
 	
 	// time
 
-	public var hour(get, never): Int;
-	inline function get_hour() return repr.getHours();
+	public inline function getHour() return date.getHours();
 
-	public var minute(get, never): Int;
-	inline function get_minute() return repr.getMinutes();
+	public inline function getMinute() return date.getMinutes();
 
-	public var second(get, never): Float;
-	function get_second() {
-		return (repr.getTime() % 60000) / 1000;
+	public function getSecond() {
+		return (date.getTime() % 60000) / 1000;
 	}
 
 	// timezone
 
 	// yearday
 
-	public var weekday(get, never): Int;
-	inline function get_weekday() return repr.getDay() + 1;
+	public inline function getWeekday() return date.getDay() + 1;
 
 	// week
 
 	// isoweek
 
-	public function new(date: std.Date) {
-		this.repr = date;
+	public function getPath(access: Value) {
+		return (switch access.KIND {
+			case KInteger(_.int => i): Some(Left(i));
+			case KWord(_.name.toLowerCase() => w) if(ACCESSORS.contains(w)): Some(Right(w));
+			default: None;
+		}).flatMap(v -> (switch v {
+			case Left(1) | Right("date"): Some(getDate());
+			case Left(2) | Right("year"): Some(new Integer(getYear()));
+			case Left(3) | Right("month"): Some(new Integer(getMonth()));
+			case Left(4) | Right("day"): Some(new Integer(getDay()));
+			case Left(5) | Right("zone"): Some(zone);
+			case Left(6) | Right("time"): Some(new Time(getHour(), getMinute(), getSecond()));
+			case Left(7) | Right("hour"): Some(new Integer(getHour()));
+			case Left(8) | Right("minute"): Some(new Integer(getMinute()));
+			case Left(9) | Right("second"): Some({
+				final sec = getSecond();
+				if(sec % 1 == 0) {
+					new Integer(Std.int(sec));
+				} else {
+					new types.Float(sec);
+				}
+			});
+			case Left(10) | Right("weekday"): throw "NYI!";
+			case Left(11) | Right("yearday" | "julian"): throw "NYI!";
+			case Left(12) | Right("timezone"): throw "NYI!";
+			case Left(13) | Right("week"): throw "NYI!";
+			case Left(14) | Right("isoweek"): throw "NYI!";
+			default: None;
+		} : Option<Value>));
 	}
 }

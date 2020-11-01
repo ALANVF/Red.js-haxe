@@ -1,9 +1,11 @@
 package types;
 
+import types.base.IGetPath;
+import haxe.ds.Option;
 import haxe.io.Bytes;
 import util.Set;
 
-class Bitset extends Value {
+class Bitset extends Value implements IGetPath {
 	public var bytes: Bytes;
 	public final negated: Bool;
 
@@ -90,6 +92,14 @@ class Bitset extends Value {
 			this.bytes = newBytes;
 		} else {
 			this.bytes.set(i, this.bytes.get(i) | byte);
+		}
+	}
+
+	public function getPath(access: Value): Option<Value> {
+		return switch access.KIND {
+			case KChar(_.code => c): Some(Logic.fromCond(this.hasBit(c)));
+			case KInteger(_.int => i) if(0 <= i): Some(Logic.fromCond(this.hasBit(i)));
+			default: None;
 		}
 	}
 }

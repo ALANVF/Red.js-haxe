@@ -1,8 +1,10 @@
 package types.base;
 
+import haxe.ds.Option;
+
 using util.NullTools;
 
-class _SeriesOf<T: Value> extends Value implements SeriesOf<T> {
+class _SeriesOf<T: Value> extends Value implements ISeriesOf<T> {
 	public var index: Int;
 	public var values: Array<T>;
 	
@@ -27,9 +29,9 @@ class _SeriesOf<T: Value> extends Value implements SeriesOf<T> {
 
 	public function pick(index: Int) {
 		return if(index >= this.length) {
-			null;
+			None;
 		} else {
-			this.values[this.index + index];
+			Some(this.values[this.index + index]);
 		}
 	}
 
@@ -89,5 +91,16 @@ class _SeriesOf<T: Value> extends Value implements SeriesOf<T> {
 
 	public function isTail() {
 		return this.index == this.absLength - 1;
+	}
+
+	public function iterator(): Iterator<T> {
+		return values.slice(index).iterator();
+	}
+
+	public function getPath(access: Value) {
+		return switch access.KIND {
+			case KInteger(_.int - 1 => i) if(0 <= i): cast this.pick(i);
+			default: None;
+		}
 	}
 }

@@ -1,6 +1,9 @@
 package types;
 
-class Time extends Value {
+import types.base.IGetPath;
+import haxe.ds.Option;
+
+class Time extends Value implements IGetPath {
 	public var hours: Int;
 	public var minutes: Int;
 	public var seconds: StdTypes.Float;
@@ -14,5 +17,14 @@ class Time extends Value {
 		this.minutes = minutes;
 		this.seconds = seconds;
 		this.signed = signed;
+	}
+
+	public function getPath(access: Value): Option<Value> {
+		return switch access.KIND {
+			case KInteger(_.int => 1) | KWord(_.equalsString("hour") => true): Some(new Integer(hours * sign));
+			case KInteger(_.int => 2) | KWord(_.equalsString("minute") => true): Some(new Integer(minutes));
+			case KInteger(_.int => 1) | KWord(_.equalsString("second") => true): Some(new types.Float(seconds * sign));
+			default: None;
+		};
 	}
 }
