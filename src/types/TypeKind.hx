@@ -54,4 +54,11 @@ enum abstract TypeKind(Int) {
 	//var DClosure;
 	//var DMoney;
 	var DRef;
+
+	public inline function isAnyFunction() {
+		return switch cast this {
+			case DNative | DAction | DFunction | DOp: true;
+			default: false;
+		}
+	}
 }

@@ -33,11 +33,11 @@ class _Value {
 			default: throw "error!";
 		};
 
-		if(valueKind.names.contains(vname) && fields.every(f -> f.name != "getKind")) {
+		if(valueKind.names.contains(vname) && fields.every(f -> f.name != "get_KIND")) {
 			fields.push({
-				name: "getKind",
+				name: "get_KIND",
 				pos: Context.currentPos(),
-				access: [APublic, AOverride],
+				access: [AOverride],
 				kind: FFun({
 					args: [],
 					ret: null,
@@ -47,11 +47,11 @@ class _Value {
 		}
 
 		var cases = typeKind.impl.get().statics.get().filter(f -> f.meta.has(":enum") && f.meta.has(":impl"));
-		if(cases.some(f -> f.name == dname) && fields.every(f -> f.name != "getTypeKind")) {
+		if(cases.some(f -> f.name == dname) && fields.every(f -> f.name != "get_TYPE_KIND")) {
 			fields.push({
-				name: "getTypeKind",
+				name: "get_TYPE_KIND",
 				pos: Context.currentPos(),
-				access: [APublic, AOverride],
+				access: [AOverride],
 				kind: FFun({
 					args: [],
 					ret: null,
@@ -69,16 +69,18 @@ class _Value {
 @:autoBuild(types._Value.build())
 #end
 class Value implements IValue {
+	public var KIND(get, never): ValueKind;
+	function get_KIND(): ValueKind {
+		throw "Must be implemented in subclasses!";
+	}
+
+	public var TYPE_KIND(get, never): TypeKind;
+	private function get_TYPE_KIND(): TypeKind {
+		throw "Must be implemented in subclasses!";
+	}
+
 	public function isTruthy() {
 		return true;
-	}
-
-	public function getKind(): ValueKind {
-		throw "Must be implemented in subclasses!";
-	}
-
-	public function getTypeKind(): TypeKind {
-		throw "Must be implemented in subclasses!";
 	}
 	
 	public inline function isA(type: IDatatype) {

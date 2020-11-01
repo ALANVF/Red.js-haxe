@@ -10,7 +10,7 @@ class Typeset extends Value implements IDatatype {
 		this.types = new Set();
 
 		for(type in types) {
-			switch type.getKind() {
+			switch type.KIND {
 				case KDatatype(dt):
 					this.types.add(dt);
 				case KTypeset(ts):

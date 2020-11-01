@@ -18,6 +18,6 @@ class Datatype extends Value implements IDatatype {
 	}
 
 	public function matchesTypeOfValue(value: Value) {
-		return value.getTypeKind() == this.kind;
+		return value.TYPE_KIND == this.kind;
 	}
 }
