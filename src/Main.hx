@@ -4,6 +4,8 @@ import types.Bitset;
 import Tokenizer;
 import types.*;
 
+using types.Helpers;
+
 class Main {
 	static function main() {
 		//trace(Tokenizer.tokenize("a: 1 b: 2 print [\"a + b =\" a + b]").toString());
@@ -35,7 +37,8 @@ class Main {
 
 		var word = new types.Word("word");
 		trace(word);
-		trace(word.getKind());
-		trace(word.getTypeKind());
+		trace(word.KIND);
+		trace(word.KIND.getValue());
+		trace(word.TYPE_KIND);
 	}
 }
