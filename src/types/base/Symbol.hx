@@ -46,4 +46,13 @@ class Symbol extends Value {
 				return value;
 		}
 	}
+
+	public function setValue(value: Value) {
+		return if(context.containsSymbol(this)) {
+			context.setSymbol(this, value);
+		} else {
+			context.addSymbol(this, value);
+			value;
+		}
+	}
 }

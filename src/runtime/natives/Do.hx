@@ -1,10 +1,11 @@
 package runtime.natives;
 
+//import types.base._NativeOptions.NDoOptions;
+import types.Unset;
+import types.Word;
 import types.base.IGetPath;
 import types.base.IFunction;
-import types.base.IFunction.QuotingKind;
 import haxe.ds.Option;
-//import types.base.*;
 import types.Value;
 import types.SetWord;
 import types.SetPath;
@@ -135,4 +136,52 @@ class Do {
 				}
 		}
 	}
+
+	public static function evalGroupedExpr(expr: GroupedExpr): Value {
+		return switch expr {
+			case GValue(value): evalValue(value);
+			case GNoEval(value): value;
+			case GSetWord(s, GUnset): throw '${s.name} needs a value!';
+			case GSetWord(s, evalGroupedExpr(_) => value):
+				if(value == Unset.UNSET) {
+					throw '${s.name} needs a value!';
+				} else {
+					s.setValue(value);
+				}
+			case GSetPath(s, e): throw "NYI";
+			case GOp(left, op, right): throw "NYI";
+			case GCall(fn, args, refines): throw "NYI";
+			case GUnset: throw "Unexpected unset!";
+		}
+	}
+
+	public static function evalValue(value: Value) {
+		return switch value.KIND {
+			case KParen(p): throw "NYI";
+			case KGetPath(g): throw "NYI";
+			case KLitPath(l): cast(l, Path);
+			case KPath(p): throw "NYI";
+			case KWord(w): w.getValue();
+			case KGetWord(g): g.getValue(true);
+			case KLitWord(l): cast(l, Word);
+			default: value;
+		}
+	}
+
+	public static function evalValues(values: Array<Value>) {
+		final tokens = values.map(v -> v.KIND);
+		var result: Value = Unset.UNSET;
+		
+		while(tokens.length != 0) {
+			result = evalGroupedExpr(groupNextExpr(tokens));
+		}
+
+		return result;
+	}
+
+	/*public static function call(value: Value, options: NDoOptions) {
+		switch value.KIND {
+			
+		}
+	}*/
 }

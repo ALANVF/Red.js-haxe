@@ -30,6 +30,11 @@ private extern interface _ArrayProto<T> {
 	@:overload(function(callback: (element: T, index: Int) -> Void, ?thisArg: Any): Void {})
 	@:native("forEach")
 	function _forEach(callback: (element: T, index: Int, array: Array<T>) -> Void, ?thisArg: Any): Void;
+
+	@:overload(function(callback: (element: T) -> Bool, ?thisArg: Any): Array<T> {})
+	@:overload(function(callback: (element: T, index: Int) -> Bool, ?thisArg: Any): Array<T> {})
+	@:native("filter")
+	function _filter(callback: (element: T, index: Int, array: Array<T>) -> Bool, ?thisArg: Any): Array<T>;
 }
 #end
 
@@ -89,6 +94,15 @@ abstract ArrayTools<T>(Array<T>) from Array<T> to Array<T> {
 	
 	public inline static function forEachia<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Void, ?thisArg: Any): Void
 		(cast array : _ArrayProto<T>)._forEach(cast callback, thisArg);
+
+	public inline static function filter<T>(array: Array<T>, callback: (element: T) -> Bool): Array<T>
+		return (cast array : _ArrayProto<T>)._filter(cast callback);
+
+	public inline static function filteri<T>(array: Array<T>, callback: (element: T, index: Int) -> Bool): Array<T>
+		return (cast array : _ArrayProto<T>)._filter(cast callback);
+
+	public inline static function filteria<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Bool): Array<T>
+		return (cast array : _ArrayProto<T>)._filter(cast callback);
 
 #else
 
@@ -210,6 +224,18 @@ abstract ArrayTools<T>(Array<T>) from Array<T> to Array<T> {
 	public static function forEachia<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Void) {
 		for(i => value in array)
 			callback(value, i, array);
+	}
+
+	public static function filteri<T>(array: Array<T>, callback: (element: T, index: Int) -> Bool): Array<T> {
+		return [for(i => value in array)
+			if(callback(value, i))
+				value];
+	}
+
+	public static function filteria<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Bool): Array<T> {
+		return [for(i => value in array)
+			if(callback(value, i, array))
+				value];
 	}
 #end
 

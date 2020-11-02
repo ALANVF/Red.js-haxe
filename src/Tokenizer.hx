@@ -1,4 +1,8 @@
+import types.Paren;
 import tokenizer.*;
+//import tokenizer.Token;
+
+using util.MathTools;
 
 class Tokenizer {
 	static function matchRxWithGuardRx(rdr: Reader, guard: EReg, rx: EReg) {
@@ -442,5 +446,47 @@ class Tokenizer {
 		}
 		
 		return out;
+	}
+
+	static function tokenToValue(token: Token) {
+		return switch token {
+			case TWord(word): new types.Word(word);
+			case TGetWord(word): new types.GetWord(word);
+			case TSetWord(word): new types.SetWord(word);
+			case TLitWord(word): new types.LitWord(word);
+			case TPath(path): new types.Path(path.map(tokenToValue));
+			case TGetPath(path): new types.GetPath(path.map(tokenToValue));
+			case TSetPath(path): new types.SetPath(path.map(tokenToValue));
+			case TLitPath(path): new types.LitPath(path.map(tokenToValue));
+			case TInteger(int): new types.Integer(int);
+			case TFloat(float): new types.Float(float);
+			case TPercent(percent): new types.Percent(percent);
+			case TMoney(_, _): throw 'NYI';
+			case TChar(char): types.Char.fromRed(char);
+			case TString(str): types.String.fromRed(str);
+			case TFile(file): new types.File(types.base._String.charsFromRed(file));
+			case TEmail(email): new types.Email(types.base._String.charsFromRed(email));
+			case TUrl(url): new types.Url(types.base._String.charsFromRed(url));
+			case TIssue(issue): new types.Issue(issue);
+			case TRefinement(ref): new types.Refinement(ref);
+			case TTag(tag): new types.Tag(types.base._String.charsFromRed(tag));
+			case TRef(ref): new types.Ref(types.base._String.charsFromRed(ref));
+			case TBinary(_, _): throw 'NYI';
+			case TBlock(block): new types.Block(block.map(tokenToValue));
+			case TParen(paren): new types.Paren(paren.map(tokenToValue));
+			case TMap(map): types.Map.fromPairs([for(i => k in map) if(i % 2 == 0) {k: tokenToValue(k), v: tokenToValue(map[i + 1])}]);
+			case TTuple(tuple): new types.Tuple(haxe.io.UInt8Array.fromArray(tuple));
+			case TPair(x, y): new types.Pair(x, y);
+			case TDate(_, _, _): throw 'NYI';
+			case TTime(h, m, s): new types.Time(Math.iabs(h), m, s, h < 0);
+			case TConstruct([TWord("true")]): types.Logic.TRUE;
+			case TConstruct([TWord("false")]): types.Logic.FALSE;
+			case TConstruct([TWord("none" | "none!")]): types.None.NONE;
+			case TConstruct(_): throw 'NYI';
+		}
+	}
+
+	public static function parse(input: String) {
+		return tokenize(input).map(tokenToValue);
 	}
 }

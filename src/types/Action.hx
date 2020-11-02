@@ -92,9 +92,7 @@ class Action extends _Function {
 	public final fn: ActionFn;
 
 	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>, fn: ActionFn) {
-		this.args = args;
-		this.refines = refines;
-		this.retSpec = retSpec;
+		super(args, refines, retSpec);
 		this.fn = fn;
 	}
 }

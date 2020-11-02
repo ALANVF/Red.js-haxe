@@ -4,7 +4,7 @@ using StringTools;
 using util.NullTools;
 
 class _String extends _SeriesOf<Char> {
-	static function charsFromRed(str: std.String) {
+	public static function charsFromRed(str: std.String) {
 		return [while(str.length > 0) {
 			final cc = if(str.charCodeAt(0) == "^".code) {
 				switch(str.charCodeAt(1).notNull()) {

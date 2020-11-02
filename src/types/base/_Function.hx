@@ -28,6 +28,12 @@ class _Function extends Value implements IFunction {
 	public var arity(get, never): Int;
 	function get_arity() return this.args.length;
 
+	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>) {
+		this.args = args;
+		this.refines = refines;
+		this.retSpec = retSpec;
+	}
+
 	public function arityWithRefines(refines: Iterable<std.String>) {
 		var nargs = this.arity;
 		

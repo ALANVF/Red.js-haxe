@@ -3,7 +3,7 @@ package types.base;
 class _Name extends Value {
 	public final name: std.String;
 
-	function new(name: std.String) this.name = name;
+	public function new(name: std.String) this.name = name;
 
 	public function equalsName(name: _Name) {
 		return this.name.toLowerCase() == name.name.toLowerCase();

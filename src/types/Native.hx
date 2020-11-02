@@ -125,9 +125,7 @@ class Native extends _Function {
 	public final fn: NativeFn;
 
 	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>, fn: NativeFn) {
-		this.args = args;
-		this.refines = refines;
-		this.retSpec = retSpec;
+		super(args, refines, retSpec);
 		this.fn = fn;
 	}
 }
