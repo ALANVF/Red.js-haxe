@@ -1,11 +1,12 @@
 package types;
 
+import types.base.ISetPath;
 import types.base.IGetPath;
 import haxe.ds.Option;
 import haxe.io.Bytes;
 import util.Set;
 
-class Bitset extends Value implements IGetPath {
+class Bitset extends Value implements IGetPath implements ISetPath {
 	public var bytes: Bytes;
 	public final negated: Bool;
 
@@ -97,9 +98,18 @@ class Bitset extends Value implements IGetPath {
 
 	public function getPath(access: Value, ?ignoreCase = false): Option<Value> {
 		return switch access.KIND {
-			case KChar(_.code => c): Some(Logic.fromCond(this.hasBit(c)));
-			case KInteger(_.int => i) if(0 <= i): Some(Logic.fromCond(this.hasBit(i)));
+			case KChar(_.code => c) | KInteger(_.int => c) if(0 <= c): Some(Logic.fromCond(this.hasBit(c)));
 			default: None;
+		}
+	}
+
+	public function setPath(access: Value, newValue: Value, ?ignoreCase = false) {
+		return switch [access.KIND, newValue.KIND] {
+			case [KChar(_.code => c) | KInteger(_.int => c), KLogic(_.cond => status)] if(0 <= c):
+				this.setBit(c, status);
+				true;
+			default:
+				false;
 		}
 	}
 }

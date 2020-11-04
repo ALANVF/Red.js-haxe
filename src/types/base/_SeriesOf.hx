@@ -103,4 +103,13 @@ class _SeriesOf<T: Value> extends Value implements ISeriesOf<T> {
 			default: None;
 		}
 	}
+
+	public function setPath(access: Value, newValue: Value, ?ignoreCase = true) {
+		return switch access.KIND {
+			case KInteger(_.int - 1 => i) if(0 <= i): // TODO: somehow typecheck against T
+				this.poke(i, cast newValue);
+				true;
+			default: false;
+		}
+	}
 }

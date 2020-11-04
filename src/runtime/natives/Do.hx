@@ -152,7 +152,7 @@ class Do {
 				} else {
 					s.setValue(value);
 				}
-			case GSetPath(s, e): throw "NYI";
+			case GSetPath(s, e): Set.setPath(s, evalGroupedExpr(e));
 			case GOp(left, op, right): throw "NYI";
 			case GCall(fn, args, refines): throw "NYI";
 			case GUnset: throw "Unexpected unset!";

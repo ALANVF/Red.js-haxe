@@ -2,7 +2,7 @@ package types.base;
 
 import haxe.ds.Option;
 
-interface ISeriesOf<T> extends IGetPath {
+interface ISeriesOf<T> extends IGetPath extends ISetPath {
 	public var index: Int;
 	public var length(get, default): Int;
 	public var absLength(get, default): Int;
