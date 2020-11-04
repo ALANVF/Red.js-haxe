@@ -51,7 +51,8 @@ class Reader {
 	}
 
 	public function matchesRx(rx: EReg) {
-		return rx.match(this.stream.substr(this.pos)) && rx.matchedPos().pos == 0;
+		//return rx.match(this.stream.substr(this.pos)) && rx.matchedPos().pos == 0;
+		return rx.matchSub(this.stream, this.pos) && rx.matchedPos().pos == this.pos;
 	}
 
 	public function matchRx(rx: EReg) {
