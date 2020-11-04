@@ -1,6 +1,5 @@
 package util;
 
-import haxe.macro.Expr;
 import haxe.ds.Option;
 
 abstract OptionTools<T>(Option<T>) from Option<T> to Option<T> {
@@ -29,10 +28,10 @@ abstract OptionTools<T>(Option<T>) from Option<T> to Option<T> {
 		};
 	}
 
-	public static macro function getOrElse<T>(opt: ExprOf<Option<T>>, other: ExprOf<T>) {
-		return macro switch ${opt} {
+	public static function orElse<T, U: T, V: T>(opt: Option<U>, other: V): T {
+		return switch opt {
 			case Some(v): v;
-			case None: ${other};
+			case None: other;
 		};
 	}
 }

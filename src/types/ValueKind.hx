@@ -35,7 +35,7 @@ enum ValueKind {
 	//KPoint(v: Point);
 	KObject(v: Object);
 	KTypeset(v: Typeset);
-	//KError(v: Error);
+	KError(v: Error);
 	//KVector(v: Vector);
 	KHash(v: Hash);
 	KPair(v: Pair);

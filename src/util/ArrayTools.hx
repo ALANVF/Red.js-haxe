@@ -43,47 +43,47 @@ abstract ArrayTools<T>(Array<T>) from Array<T> to Array<T> {
 #if (js && js_es >= 5)
 
 	public inline static function every<T>(array: Array<T>, callback: (currentValue: T) -> Bool, ?thisArg: Any): Bool
-		return (cast array : _ArrayProto<T>)._every(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._every(cast callback, thisArg);
 	
 	public inline static function everyi<T>(array: Array<T>, callback: (currentValue: T, index: Int) -> Bool, ?thisArg: Any): Bool
-		return (cast array : _ArrayProto<T>)._every(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._every(cast callback, thisArg);
 	
 	public inline static function everyia<T>(array: Array<T>, callback: (currentValue: T, index: Int, array: Array<T>) -> Bool, ?thisArg: Any): Bool
-		return (cast array : _ArrayProto<T>)._every(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._every(cast callback, thisArg);
 
 
 	public inline static function some<T>(array: Array<T>, callback: (currentValue: T) -> Bool, ?thisArg: Any): Bool
-		return (cast array : _ArrayProto<T>)._some(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._some(cast callback, thisArg);
 	
 	public inline static function somei<T>(array: Array<T>, callback: (currentValue: T, index: Int) -> Bool, ?thisArg: Any): Bool
-		return (cast array : _ArrayProto<T>)._some(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._some(cast callback, thisArg);
 	
 	public inline static function someia<T>(array: Array<T>, callback: (currentValue: T, index: Int, array: Array<T>) -> Bool, ?thisArg: Any): Bool
-		return (cast array : _ArrayProto<T>)._some(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._some(cast callback, thisArg);
 
 
 	public inline static function fill<T>(array: Array<T>, value: T, ?start: Int, ?end: Int): Array<T>
-		return (cast array : _ArrayProto<T>)._fill(value, start, end);
+		return inline (cast array : _ArrayProto<T>)._fill(value, start, end);
 
 
 	public inline static function find<T>(array: Array<T>, callback: (element: T) -> Bool, ?thisArg: Any): Null<T>
-		return (cast array : _ArrayProto<T>)._find(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._find(cast callback, thisArg);
 	
 	public inline static function findi<T>(array: Array<T>, callback: (element: T, index: Int) -> Bool, ?thisArg: Any): Null<T>
-		return (cast array : _ArrayProto<T>)._find(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._find(cast callback, thisArg);
 	
 	public inline static function findia<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Bool, ?thisArg: Any): Null<T>
-		return (cast array : _ArrayProto<T>)._find(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._find(cast callback, thisArg);
 
 
 	public inline static function findIndex<T>(array: Array<T>, callback: (element: T) -> Bool, ?thisArg: Any): Int
-		return (cast array : _ArrayProto<T>)._findIndex(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._findIndex(cast callback, thisArg);
 	
 	public inline static function findIndexi<T>(array: Array<T>, callback: (element: T, index: Int) -> Bool, ?thisArg: Any): Int
-		return (cast array : _ArrayProto<T>)._findIndex(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._findIndex(cast callback, thisArg);
 	
 	public inline static function findIndexia<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Bool, ?thisArg: Any): Int
-		return (cast array : _ArrayProto<T>)._findIndex(cast callback, thisArg);
+		return inline (cast array : _ArrayProto<T>)._findIndex(cast callback, thisArg);
 
 
 	public inline static function forEach<T>(array: Array<T>, callback: (element: T) -> Void, ?thisArg: Any): Void
@@ -96,13 +96,13 @@ abstract ArrayTools<T>(Array<T>) from Array<T> to Array<T> {
 		(cast array : _ArrayProto<T>)._forEach(cast callback, thisArg);
 
 	public inline static function filter<T>(array: Array<T>, callback: (element: T) -> Bool): Array<T>
-		return (cast array : _ArrayProto<T>)._filter(cast callback);
+		return inline (cast array : _ArrayProto<T>)._filter(cast callback);
 
 	public inline static function filteri<T>(array: Array<T>, callback: (element: T, index: Int) -> Bool): Array<T>
-		return (cast array : _ArrayProto<T>)._filter(cast callback);
+		return inline (cast array : _ArrayProto<T>)._filter(cast callback);
 
 	public inline static function filteria<T>(array: Array<T>, callback: (element: T, index: Int, array: Array<T>) -> Bool): Array<T>
-		return (cast array : _ArrayProto<T>)._filter(cast callback);
+		return inline (cast array : _ArrayProto<T>)._filter(cast callback);
 
 #else
 

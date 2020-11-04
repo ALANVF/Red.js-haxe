@@ -51,15 +51,15 @@ class Error extends Object {
 
 	public static function create(spec: CreateSpec) {
 		return new Error(
-			spec.code.map(c -> new Integer(c)).getOrElse(types.None.NONE),
+			spec.code.map(c -> new Integer(c)).orElse(types.None.NONE),
 			new Word(spec.type),
 			new Word(spec.id),
-			spec.arg1.getOrElse(types.None.NONE),
-			spec.arg2.getOrElse(types.None.NONE),
-			spec.arg3.getOrElse(types.None.NONE),
-			spec.near.map(s -> new Block([for(v in s) v])).getOrElse(types.None.NONE),
-			spec.where.getOrElse(types.None.NONE),
-			spec.stack.map(s -> new Integer(s)).getOrElse(types.None.NONE)
+			spec.arg1.orElse(types.None.NONE),
+			spec.arg2.orElse(types.None.NONE),
+			spec.arg3.orElse(types.None.NONE),
+			spec.near.map(n -> new Block([for(v in n) v])).orElse(types.None.NONE),
+			spec.where.orElse(types.None.NONE),
+			spec.stack.map(s -> new Integer(s)).orElse(types.None.NONE)
 		);
 	}
 

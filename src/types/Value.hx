@@ -73,7 +73,8 @@ class _ValueBuilder {
 					final e = f.expr();
 					final n = f.name;
 
-					if(fields.find(f->f.name==n) != null || f.kind.match(FVar(_, _)) || !f.isPublic || e == null) {
+					if(fields.find(f->f.name==n) != null || f.kind.match(FVar(_, _)) || !f.isPublic
+					|| e == null || e.expr.match(TThrow(_)) || e.expr.match(TBlock(_[0] => {expr: TThrow(_), pos: _, t: _}))) {
 						continue;
 					}
 					

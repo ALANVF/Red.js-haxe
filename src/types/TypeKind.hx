@@ -34,7 +34,7 @@ enum abstract TypeKind(Int) {
 	//var DPoint;
 	var DObject;
 	var DTypeset;
-	//var DError;
+	var DError;
 	//var DVector;
 	var DHash;
 	var DPair;
