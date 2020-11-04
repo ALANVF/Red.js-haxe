@@ -5,8 +5,12 @@ import types.base.IDatatype;
 import haxe.macro.Context;
 
 using util.ArrayTools;
+using Lambda;
 
-class _Value {
+@:noCompletion
+@:noDoc
+@:noImportGlobal
+class _ValueBuilder {
 #if macro
 	public static function build(): Array<haxe.macro.Expr.Field> {
 		var cls = switch Context.getLocalType() {
@@ -60,13 +64,66 @@ class _Value {
 			});
 		}
 
+		if(cls.superClass != null) {
+			final sc = cls.superClass.t.get();
+			final o = sc.overrides.map(ov -> ov.get());
+			
+			if(["_Block", "_SeriesOf", "_Path", "_String", "_Function", "Symbol"].contains(sc.name)) {
+				for(f in o.concat(sc.fields.get().filter(fl -> o.every(ov -> ov.name != fl.name)))) {
+					final e = f.expr();
+					final n = f.name;
+
+					if(fields.find(f->f.name==n) != null || f.kind.match(FVar(_, _)) || !f.isPublic || e == null) {
+						continue;
+					}
+					
+					switch e.t {
+						case TFun(args, ret) | TLazy(_() => TFun(args, ret)):
+							switch ret {
+								case TInst(_.get() => t, _) if(t.pack.equals(sc.pack) && t.name == sc.name):
+									final fn = switch e.expr {
+										case TFunction(fn): fn;
+										default: throw "error";
+									};
+
+									fields.push({
+										name: f.name,
+										pos: Context.currentPos(),
+										access: [APublic, AOverride],
+										kind: FFun({
+											args: fn.args.mapi((i, a) -> {
+												return {
+													name: args[i].name,
+													opt: args[i].opt,
+													type: Context.toComplexType(args[i].t),
+													meta: a.v.meta.get(),
+													value: switch a.v {
+														case {extra: null | {expr: null}}: null;
+														case {extra: {expr: expr}}: Context.getTypedExpr(expr);
+													}
+												};
+											}),
+											ret: Context.toComplexType(Context.getLocalType()),
+											expr: macro {
+												return cast super.$n($a{${[for(a in args) macro $i{a.name}]}});
+											}
+										})
+									});
+								default:
+							}
+						default:
+					}
+				}
+			}
+		}
+
 		return fields;
 	}
 #end
 }
 
 #if !macro
-@:autoBuild(types._Value.build())
+@:autoBuild(types._ValueBuilder.build())
 #end
 class Value implements IValue {
 	public var KIND(get, never): ValueKind;

@@ -254,4 +254,8 @@ abstract ArrayTools<T>(Array<T>) from Array<T> to Array<T> {
 		@:overload(function(callback: (previousValue: T, currentValue: T, index: Int, array: Array<T>) -> Int): T {})
 		function reduceRight<T>(callback: (previousValue: T, currentValue: T, index: Int, array: Array<T>) -> T, initialValue: T): T;
 	*/
+
+	public static function equals<T>(a1: Array<T>, a2: Array<T>) {
+		return everyi(a1, (v, i) -> v == a2[i]);
+	}
 }
