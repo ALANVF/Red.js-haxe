@@ -1,5 +1,7 @@
 package types.base;
 
+import haxe.ds.Option;
+
 typedef ARandomOptions = {
 	seed:   Bool,
 	secure: Bool,
@@ -7,14 +9,14 @@ typedef ARandomOptions = {
 }
 
 typedef AFormOptions = {
-	part: Null<{limit: Integer}>
+	part: Option<{limit: Integer}>
 }
 
 typedef AMoldOptions = {
 	only: Bool,
 	all:  Bool,
 	flat: Bool,
-	part: Null<{limit: Integer}>
+	part: Option<{limit: Integer}>
 }
 
 typedef AModifyOptions = {
@@ -22,7 +24,7 @@ typedef AModifyOptions = {
 }
 
 typedef ARoundOptions = {
-	to:          Null<{scale: Value}>,
+	to:          Option<{scale: Value}>,
 	even:        Bool,
 	down:        Bool,
 	halfDown:    Bool,
@@ -32,31 +34,31 @@ typedef ARoundOptions = {
 }
 
 typedef AAppendOptions = {
-	part: Null<{length: Value}>,
+	part: Option<{length: Value}>,
 	only: Bool,
-	dup:  Null<{count: Integer}>
+	dup:  Option<{count: Integer}>
 }
 
 typedef AChangeOptions = {
-	part: Null<{range: Value}>,
+	part: Option<{range: Value}>,
 	only: Bool,
-	dup:  Null<{count: _Number}>
+	dup:  Option<{count: _Number}>
 }
 
 typedef ACopyOptions = {
-	part:  Null<{length: Value}>,
+	part:  Option<{length: Value}>,
 	deep:  Bool,
-	types: Null<{kind: IDatatype}>
+	types: Option<{kind: IDatatype}>
 }
 
 typedef AFindOptions = {
-	part:    Null<{length: Value}>,
+	part:    Option<{length: Value}>,
 	only:    Bool,
 	_case:   Bool,
 	same:    Bool,
 	any:     Bool,
-	with:    Null<{wild: String}>,
-	skip:    Null<{size: Integer}>,
+	with:    Option<{wild: String}>,
+	skip:    Option<{size: Integer}>,
 	last:    Bool,
 	reverse: Bool,
 	tail:    Bool,
@@ -64,13 +66,13 @@ typedef AFindOptions = {
 }
 
 typedef AInsertOptions = {
-	part: Null<{length: Value}>,
+	part: Option<{length: Value}>,
 	only: Bool,
-	dup:  Null<{count: Integer}>
+	dup:  Option<{count: Integer}>
 }
 
 typedef AMoveOptions = {
-	part: Null<{length: Integer}>
+	part: Option<{length: Integer}>
 }
 
 typedef APutOptions = {
@@ -78,39 +80,39 @@ typedef APutOptions = {
 }
 
 typedef ARemoveOptions = {
-	part: Null<{length: Value}>,
-	key:  Null<{keyArg: Value}>
+	part: Option<{length: Value}>,
+	key:  Option<{keyArg: Value}>
 }
 
 typedef AReverseOptions = {
-	part: Null<{length: Value}>,
-	skip: Null<{size: Integer}>
+	part: Option<{length: Value}>,
+	skip: Option<{size: Integer}>
 }
 
 typedef ASelectOptions = {
-	part:    Null<{length: Value}>,
+	part:    Option<{length: Value}>,
 	only:    Bool,
 	_case:   Bool,
 	same:    Bool,
 	any:     Bool,
-	with:    Null<{wild: String}>,
-	skip:    Null<{size: Integer}>,
+	with:    Option<{wild: String}>,
+	skip:    Option<{size: Integer}>,
 	last:    Bool,
 	reverse: Bool
 }
 
 typedef ASortOptions = {
 	_case:   Bool,
-	skip:    Null<{size: Integer}>,
-	compare: Null<{comparator: Value}>,
-	part:    Null<{length: Value}>,
+	skip:    Option<{size: Integer}>,
+	compare: Option<{comparator: Value}>,
+	part:    Option<{length: Value}>,
 	all:     Bool,
 	reverse: Bool,
 	stable:  Bool
 }
 
 typedef ATakeOptions = {
-	part: Null<{length: Value}>,
+	part: Option<{length: Value}>,
 	deep: Bool,
 	last: Bool
 }
@@ -121,7 +123,7 @@ typedef ATrimOptions = {
 	auto:  Bool,
 	lines: Bool,
 	all:   Bool,
-	with:  Null<{str: Value}>
+	with:  Option<{str: Value}>
 }
 
 typedef AOpenOptions = {
@@ -129,16 +131,16 @@ typedef AOpenOptions = {
 	read:  Bool,
 	write: Bool,
 	seek:  Bool,
-	allow: Null<{access: Block}>
+	allow: Option<{access: Block}>
 }
 
 typedef AReadOptions = {
-	part:   Null<{length: _Number}>,
-	seek:   Null<{index: _Number}>,
+	part:   Option<{length: _Number}>,
+	seek:   Option<{index: _Number}>,
 	binary: Bool,
 	lines:  Bool,
 	info:   Bool,
-	as:     Null<{encoding: Word}>
+	as:     Option<{encoding: Word}>
 }
 
 typedef AWriteOptions = {
@@ -146,10 +148,10 @@ typedef AWriteOptions = {
 	lines:  Bool,
 	info:   Bool,
 	append: Bool,
-	part:   Null<{length: _Number}>,
-	seek:   Null<{index: _Number}>,
-	allow:  Null<{access: Block}>,
-	as:     Null<{encoding: Word}>
+	part:   Option<{length: _Number}>,
+	seek:   Option<{index: _Number}>,
+	allow:  Option<{access: Block}>,
+	as:     Option<{encoding: Word}>
 }
 
 typedef _ActionOptions = {}

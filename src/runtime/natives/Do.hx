@@ -1,6 +1,8 @@
 package runtime.natives;
 
-//import types.base._NativeOptions.NDoOptions;
+import types.base.Options;
+import types.base._NativeOptions;
+import types.base._Path;
 import types.Unset;
 import types.Word;
 import types.base.IGetPath;
@@ -31,6 +33,8 @@ enum GroupedExpr {
 }
 
 class Do {
+	public static final defaultOptions = Options.defaultFor(NDoOptions);
+
 	static function _doesBecomeFunction(value: Value, values: Array<Value>) {
 		return if((value is IFunction)) {
 			Some({fn: cast(value, IFunction), rest: values});
@@ -157,10 +161,9 @@ class Do {
 
 	public static function evalValue(value: Value) {
 		return switch value.KIND {
-			case KParen(p): throw "NYI";
-			case KGetPath(g): throw "NYI";
+			case KParen(p): evalValues(p);
+			case KPath((_ : _Path) => p) | KGetPath(p): Get.getPath(p);
 			case KLitPath(l): cast(l, Path);
-			case KPath(p): throw "NYI";
 			case KWord(w): w.getValue();
 			case KGetWord(g): g.getValue(true);
 			case KLitWord(l): cast(l, Word);
@@ -168,8 +171,8 @@ class Do {
 		}
 	}
 
-	public static function evalValues(values: Array<Value>) {
-		final tokens = values.map(v -> v.KIND);
+	public static function evalValues(values: Iterable<Value>) {
+		final tokens = [for(v in values) v.KIND];
 		var result: Value = Unset.UNSET;
 		
 		while(tokens.length != 0) {
@@ -179,9 +182,50 @@ class Do {
 		return result;
 	}
 
-	/*public static function call(value: Value, options: NDoOptions) {
-		switch value.KIND {
+	public static function doNextValue(values: Iterable<Value> & {var length(get, never): Int;}) {
+		if(values.length == 0) {
+			return {
+				value: (Unset.UNSET : Value),
+				offset: 0
+			};
+		} else {
+			final values_ = [for(v in values) v.KIND];
+			final value = groupNextExpr(values_);
 			
+			return {
+				value: evalGroupedExpr(value),
+				offset: values.length - values_.length
+			};
 		}
-	}*/
+	}
+
+	public static function call(value: Value, options: NDoOptions) {
+		return switch options {
+			case {expand: true} | {args: Some(_)}: throw 'NYI';
+			case {next: Some({position: word})}: switch value.KIND {
+				case KBlock((_ : types.base._Block) => b) | KParen(b):
+					switch doNextValue(b) {
+						case {value: v, offset: o}:
+							word.setValue(b.skip(o));
+							return v;
+					}
+				case KString(s):
+					final values = Transcode.call(s, Transcode.defaultOptions);
+					
+					switch doNextValue(values) {
+						case {value: v, offset: o}:
+							word.setValue(values.skip(o));
+							return v;
+					}
+				case KFile(_) | KUrl(_): throw 'NYI';
+				default: evalValue(value);
+			}
+			default: switch value.KIND {
+				case KBlock((_ : types.base._Block) => body) | KParen(body): evalValues(body);
+				case KString(s): evalValues(Transcode.call(s, Transcode.defaultOptions));
+				case KFile(_) | KUrl(_): throw 'NYI';
+				default: evalValue(value);
+			}
+		}
+	}
 }
