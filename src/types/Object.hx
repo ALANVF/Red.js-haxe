@@ -21,10 +21,10 @@ class Object extends Value implements IGetPath {
 		return new Object(obj.ctx, obj.id);
 	}
 
-	public function getPath(access: Value) {
+	public function getPath(access: Value, ?ignoreCase = true) {
 		return switch access.KIND {
-			case KWord(w) if(ctx.containsSymbol(w)): Some(ctx.getSymbol(w));
-			case KLitWord(w) if(ctx.containsSymbol(w)): Some(ctx.getSymbol(w));
+			case KWord(_.name => n) | KLitWord(_.name => n) if(ctx.contains(n, ignoreCase)):
+				Some(ctx.get(n, ignoreCase));
 			default: None;
 		};
 	}

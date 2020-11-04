@@ -13,8 +13,10 @@ class Symbol extends Value {
 		this.offset = offset.getOrElse(this.context.symbols.length);
 	}
 
-	public function equalsString(str: std.String) {
-		return this.name.toLowerCase() == str.toLowerCase();
+	public function equalsString(str: std.String, ignoreCase = true) {
+		return ignoreCase
+			? this.name.toLowerCase() == str.toLowerCase()
+			: this.name == str;
 	}
 
 	public function equalsSymbol(sym: Symbol) {

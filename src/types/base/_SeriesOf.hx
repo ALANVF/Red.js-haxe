@@ -97,7 +97,7 @@ class _SeriesOf<T: Value> extends Value implements ISeriesOf<T> {
 		return values.slice(index).iterator();
 	}
 
-	public function getPath(access: Value) {
+	public function getPath(access: Value, ?ignoreCase = true) {
 		return switch access.KIND {
 			case KInteger(_.int - 1 => i) if(0 <= i): cast this.pick(i);
 			default: None;

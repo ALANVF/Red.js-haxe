@@ -95,7 +95,7 @@ class Bitset extends Value implements IGetPath {
 		}
 	}
 
-	public function getPath(access: Value): Option<Value> {
+	public function getPath(access: Value, ?ignoreCase = false): Option<Value> {
 		return switch access.KIND {
 			case KChar(_.code => c): Some(Logic.fromCond(this.hasBit(c)));
 			case KInteger(_.int => i) if(0 <= i): Some(Logic.fromCond(this.hasBit(i)));

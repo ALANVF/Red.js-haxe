@@ -12,10 +12,10 @@ class Pair extends Value implements IGetPath {
 		this.y = y;
 	}
 
-	public function getPath(access: Value): Option<Value> {
+	public function getPath(access: Value, ?ignoreCase = true): Option<Value> {
 		return switch access.KIND {
-			case KWord(_.equalsString("x") => true): Some(new Integer(x));
-			case KWord(_.equalsString("y") => true): Some(new Integer(y));
+			case KWord(_.equalsString("x", ignoreCase) => true): Some(new Integer(x));
+			case KWord(_.equalsString("y", ignoreCase) => true): Some(new Integer(y));
 			default: None;
 		};
 	}
