@@ -9,6 +9,10 @@ class String extends _String {
 		return new String(_String.charsFromRed(str));
 	}
 
+	public static function fromString(str: std.String) {
+		return new String([for(i in 0...str.length) Char.fromCode(str.charCodeAt(i))]);
+	}
+
 	override function clone(values: Array<Char>, ?index: Int) {
 		return new String(values, index);
 	}

@@ -80,7 +80,7 @@ class _ValueBuilder {
 					switch e.t {
 						case TFun(args, ret) | TLazy(_() => TFun(args, ret)):
 							switch ret {
-								case TInst(_.get() => t, _) if(t.pack.equals(sc.pack) && t.name == sc.name):
+								case TInst(_.get() => t, _) if(util.ArrayTools.equals(t.pack, sc.pack) && t.name == sc.name):
 									final fn = switch e.expr {
 										case TFunction(fn): fn;
 										default: throw "error";

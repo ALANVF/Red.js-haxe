@@ -72,4 +72,12 @@ class Util {
 	public static function pretty(value: Any): String {
 		return _pretty(value, 0);
 	}
+
+	public static macro function assert(expr: haxe.macro.Expr) {
+		return macro {
+			if(!($expr)) {
+				throw 'Assertion failed: ${haxe.macro.ExprTools.toString(expr)}';
+			}
+		};
+	}
 }
