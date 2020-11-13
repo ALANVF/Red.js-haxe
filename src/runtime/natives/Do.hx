@@ -154,7 +154,12 @@ class Do {
 				}
 			case GSetPath(s, e): Set.setPath(s, evalGroupedExpr(e));
 			case GOp(left, op, right): throw "NYI";
-			case GCall(fn, args, refines): throw "NYI";
+			case GCall(fn, args, refines):
+				Eval.callFunction(
+					fn,
+					args.map(evalGroupedExpr),
+					[for(k => v in refines) k => v.map(evalGroupedExpr)]
+				);
 			case GUnset: throw "Unexpected unset!";
 		}
 	}

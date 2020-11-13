@@ -120,7 +120,7 @@ enum NativeFn {
 }
 
 class Native extends _Function {
-	public static final NATIVE_FUNCS: std.Map<std.String, NativeFn> = [];
+	//public static final NATIVE_FUNCS: std.Map<std.String, NativeFn> = [];
 
 	public final fn: NativeFn;
 

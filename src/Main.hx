@@ -12,6 +12,22 @@ class Main {
 		for(token in tokens) trace(Util.pretty(token));*/
 		
 		//trace(Do.call(types.String.fromRed("123 [456 #abc] \"banana\""), Do.defaultOptions));
+		
+		types.base.Context.GLOBAL.add(
+			"either",
+			types.Unset.UNSET
+		).setValue(
+			new types.Native(
+				[
+					{name: "cond", quoting: QVal},
+					{name: "true-blk", quoting: QVal},
+					{name: "else-blk", quoting: QVal}
+				],
+				[],
+				null,
+				NEither(runtime.natives.Either.call)
+			)
+		);
 
 		js.Syntax.code("
 var readline = require('readline');
