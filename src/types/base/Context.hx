@@ -64,7 +64,7 @@ class Context extends Value {
 		if(this.contains(word)) {
 			throw 'Word `$word` already exists!';
 		} else {
-			final sym = new Word(word, this);
+			final sym = new Word(word, this, this.symbols.length);
 			this.symbols.push(sym);
 			this.values.push(value);
 			return sym;

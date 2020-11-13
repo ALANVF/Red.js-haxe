@@ -168,10 +168,10 @@ class Do {
 		return switch value.KIND {
 			case KParen(p): evalValues(p);
 			case KPath((_ : _Path) => p) | KGetPath(p): Get.getPath(p);
-			case KLitPath(l): cast(l, Path);
+			case KLitPath(l): new Path(l.values, l.index);
 			case KWord(w): w.getValue();
 			case KGetWord(g): g.getValue(true);
-			case KLitWord(l): cast(l, Word);
+			case KLitWord(l): new Word(l.name, l.context, l.offset);
 			default: value;
 		}
 	}
