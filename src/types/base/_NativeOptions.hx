@@ -1,10 +1,6 @@
 package types.base;
 
 import haxe.ds.Option;
-import haxe.macro.Type;
-import haxe.macro.Type.TypedExprDef;
-import haxe.macro.Expr;
-import haxe.macro.Context;
 
 using util.OptionTools;
 

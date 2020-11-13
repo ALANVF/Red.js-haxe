@@ -3,7 +3,7 @@ Types:
 	- https://github.com/red/red/blob/master/runtime/datatypes/money.reds
 - date! (in-progress)
 - vector!
-- error!
+- error! (in-progress)
 - image!
 - port!
 - event!
@@ -15,8 +15,7 @@ Actions:
 - all of 'em
 
 Natives:
-- all of 'em
+- most of 'em
 
 Parser:
 - raw-string! literals
-- convert parsed nodes into actual Red values
