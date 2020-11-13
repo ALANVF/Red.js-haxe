@@ -2,7 +2,7 @@ package util;
 
 import haxe.ds.Option;
 
-abstract OptionTools<T>(Option<T>) from Option<T> to Option<T> {
+class OptionTools {
 	public static inline function fromNull<T>(c: Enum<Option<T>>, value: Null<T>) {
 		return (value == null) ? None : Some(value);
 	}

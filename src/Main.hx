@@ -33,7 +33,7 @@ io.on('line', function(input) {
 });",
 			(input: String) -> {
 				try {
-					final res = Tokenizer.tokenize(input);
+					final res = runtime.Eval.evalCode(input);
 					js.Syntax.code("console.log({0})", res);
 				} catch(e) {
 					js.Syntax.code("console.log({0})", e.details());

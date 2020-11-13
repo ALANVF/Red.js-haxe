@@ -10,7 +10,11 @@ class Symbol extends Value {
 	public function new(name: std.String, ?context: Context, ?offset: Int) {
 		this.name = name;
 		this.context = context.getOrElse(Context.GLOBAL);
-		this.offset = offset.getOrElse(this.context.symbols.length);
+		if(offset == null) {
+			this.context.addSymbol(this);
+		} else {
+			this.offset = offset;
+		}
 	}
 
 	public function equalsString(str: std.String, ignoreCase = true) {
@@ -28,9 +32,12 @@ class Symbol extends Value {
 	}
 
 	public function bindToContext(ctx: Context) {
-		if(this.context != context) {
+		if(this.context != ctx) {
 			switch ctx.offsetOf(this.name) {
 				case -1:
+					final value = this.getValue(true);
+					ctx.addSymbol(this);
+					ctx.setSymbol(this, value);
 				case offset:
 					this.context = ctx;
 					this.offset = offset;
@@ -50,11 +57,10 @@ class Symbol extends Value {
 	}
 
 	public function setValue(value: Value) {
-		return if(context.containsSymbol(this)) {
-			context.setSymbol(this, value);
-		} else {
-			context.addSymbol(this, value);
-			value;
+		if(!context.containsSymbol(this)) {
+			Context.GLOBAL.addSymbol(this);
 		}
+		
+		return context.setSymbol(this, value);
 	}
 }

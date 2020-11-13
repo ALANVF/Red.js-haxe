@@ -71,14 +71,23 @@ class Context extends Value {
 		}
 	};
 
-	public function addSymbol(word: Symbol, value: Value) {
-		if(word.context == this) {
-			throw 'Word `${word.name}` already exists!';
-		} else {
-			final sym = word.copyWith(this);
-			this.symbols.push(sym);
-			this.values.push(value);
-			return sym;
+	public function addSymbol(word: Symbol, copy = false) {
+		switch this.offsetOf(word.name) {
+			case -1:
+				final sym = if(copy) {
+					word.copyWith(this, this.symbols.length);
+				} else {
+					word.context = this;
+					word.offset = this.symbols.length;
+					word;
+				};
+				this.symbols.push(sym);
+				this.values.push(Unset.UNSET);
+				return sym;
+			case offset:
+				word.context = this;
+				word.offset = offset;
+				return word;
 		}
 	}
 
