@@ -69,9 +69,9 @@
 # Natives
 |                     | status |
 |---------------------|--------|
-| `if`                | N      |
-| `unless`            | N      |
-| `either`            | N      |
+| `if`                | Y      |
+| `unless`            | Y      |
+| `either`            | Y      |
 | `any`               | N      |
 | `all`               | N      |
 | `while`             | N      |
