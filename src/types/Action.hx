@@ -6,6 +6,7 @@ import types.base._ActionOptions;
 import types.base._Path;
 import types.base._Number;
 import types.base.ComparisonOp;
+import haxe.ds.Option;
 
 private typedef Fn1 = (value: Value) -> Value;
 private typedef LogicFn1 = (value: Value) -> Logic;
@@ -91,8 +92,8 @@ class Action extends _Function {
 
 	public final fn: ActionFn;
 
-	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>, fn: ActionFn) {
-		super(args, refines, retSpec);
+	public function new(doc: Option<std.String>, args: _Args, refines: _Refines, retSpec: Option<Block>, fn: ActionFn) {
+		super(doc, args, refines, retSpec);
 		this.fn = fn;
 	}
 }

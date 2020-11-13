@@ -24,6 +24,6 @@ interface ISeriesOf<T> extends IGetPath extends ISetPath {
 	public function isHead(): Bool;
 
 	public function isTail(): Bool;
-
+	
 	public function iterator(): Iterator<T>;
 }

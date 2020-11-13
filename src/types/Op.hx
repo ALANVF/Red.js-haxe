@@ -2,8 +2,13 @@ package types;
 
 import types.base.IFunction;
 import types.base._Function;
+import haxe.ds.Option;
 
 class Op extends Value implements IFunction {
+	public var doc(get, set): Option<std.String>;
+	function get_doc() return fn.doc;
+	function set_doc(v) return fn.doc = v;
+
 	public var args(get, set): _Args;
 	function get_args() return fn.args;
 	function set_args(v: _Args) return fn.args = v;
@@ -12,9 +17,9 @@ class Op extends Value implements IFunction {
 	function get_refines(): _Refines return [];
 	function set_refines(v: _Refines) return v;
 	
-	public var retSpec(get, set): Null<Block>;
+	public var retSpec(get, set): Option<Block>;
 	function get_retSpec() return fn.retSpec;
-	function set_retSpec(v: Null<Block>) return fn.retSpec = v;
+	function set_retSpec(v: Option<Block>) return fn.retSpec = v;
 
 	public var arity(get, never): Int;
 	function get_arity() return 2;

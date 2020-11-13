@@ -3,6 +3,7 @@ package types.base;
 using util.ArrayTools;
 
 import types.base.IFunction;
+import haxe.ds.Option;
 
 /*abstract class _Function extends Value {
 	public final args: _Args;
@@ -10,6 +11,11 @@ import types.base.IFunction;
 	public final returnSpec: Null<Block>;
 }*/
 class _Function extends Value implements IFunction {
+	var _doc: Option<std.String>;
+	public var doc(get, set): Option<std.String>;
+	function get_doc() return _doc;
+	function set_doc(v) return _doc = v;
+
 	var _args: _Args;
 	public var args(get, set): _Args;
 	function get_args() return _args;
@@ -20,15 +26,16 @@ class _Function extends Value implements IFunction {
 	function get_refines() return _refines;
 	function set_refines(v: _Refines) return _refines = v;
 
-	var _retSpec: Null<Block>;
-	public var retSpec(get, set): Null<Block>;
+	var _retSpec: Option<Block>;
+	public var retSpec(get, set): Option<Block>;
 	function get_retSpec() return _retSpec;
-	function set_retSpec(v: Null<Block>) return _retSpec = v;
+	function set_retSpec(v: Option<Block>) return _retSpec = v;
 
 	public var arity(get, never): Int;
 	function get_arity() return this.args.length;
 
-	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>) {
+	public function new(doc: Option<std.String>, args: _Args, refines: _Refines, retSpec: Option<Block>) {
+		this.doc = doc;
 		this.args = args;
 		this.refines = refines;
 		this.retSpec = retSpec;

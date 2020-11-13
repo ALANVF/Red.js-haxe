@@ -7,6 +7,7 @@ import types.base._String;
 import types.base.Symbol;
 import types.base._Block;
 import types.base._NativeOptions;
+import haxe.ds.Option;
 
 private typedef CompareFn = (value1: Value, value2: Value) -> Logic;
 private typedef SetOpFn = (set1: Value, set2: Value, options: NSetOpOptions) -> Value;
@@ -124,8 +125,8 @@ class Native extends _Function {
 
 	public final fn: NativeFn;
 
-	public function new(args: _Args, refines: _Refines, retSpec: Null<Block>, fn: NativeFn) {
-		super(args, refines, retSpec);
+	public function new(doc: Option<std.String>, args: _Args, refines: _Refines, retSpec: Option<Block>, fn: NativeFn) {
+		super(doc, args, refines, retSpec);
 		this.fn = fn;
 	}
 }

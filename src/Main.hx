@@ -12,16 +12,17 @@ class Main {
 		for(token in tokens) trace(Util.pretty(token));*/
 		
 		//trace(Do.call(types.String.fromRed("123 [456 #abc] \"banana\""), Do.defaultOptions));
-		
+
 		types.base.Context.GLOBAL.add(
 			"either",
 			types.Unset.UNSET
 		).setValue(
 			new types.Native(
+				None,
 				[
-					{name: "cond", quoting: QVal},
-					{name: "true-blk", quoting: QVal},
-					{name: "else-blk", quoting: QVal}
+					{name: "cond", quoting: types.base.IFunction.QuotingKind.QVal},
+					{name: "true-blk", quoting: types.base.IFunction.QuotingKind.QVal},
+					{name: "else-blk", quoting: types.base.IFunction.QuotingKind.QVal}
 				],
 				[],
 				null,
