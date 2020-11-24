@@ -6,6 +6,7 @@ import types.base.IFunction;
 import haxe.ds.Option;
 
 using util.OptionTools;
+using util.EnumValueTools;
 
 class Func {
 	public static function parseSpec(spec: Block) {
@@ -18,85 +19,64 @@ class Func {
 
 		inline function getArgs(args: _Args) {
 			while(true) {
-				switch spec.pick(0) {
-					case Some(_.KIND => KWord((_ : Symbol) => w) | KGetWord(w) | KLitWord(w)):
-						spec = spec.skip(1);
+				spec.pick(0).attempt(Some(_.KIND => KWord((_ : Symbol) => w) | KGetWord(w) | KLitWord(w)), {
+					spec = spec.skip(1);
 
-						args.push({
-							name: w.name,
-							quoting: switch w.TYPE_KIND {
-								case DWord:    QVal;
-								case DGetWord: QGet;
-								default:       QLit;
-							},
-							spec: switch spec.pick(0) {
-								case Some(_.KIND => KBlock(b)):
-									spec = spec.skip(1);
-									Some(b.copy());
-								default:
-									None;
-							},
-							doc: switch spec.pick(0) {
-								case Some(_.KIND => KString(s)):
-									spec = spec.skip(1);
-									Some(s.form());
-								default:
-									None;
-							}
-						});
-					default: break;
-				}
+					args.push({
+						name: w.name,
+						quoting: switch w.TYPE_KIND {
+							case DWord:    QVal;
+							case DGetWord: QGet;
+							default:       QLit;
+						},
+						spec: spec.pick(0).extractMap(_.KIND => KBlock(b), {
+							spec = spec.skip(1);
+							b.copy();
+						}),
+						doc: spec.pick(0).extractMap(_.KIND => KString(s), {
+							spec = spec.skip(1);
+							s.form();
+						})
+					});
+				}, break);
 			}
 		}
 
 		inline function getRet() {
-			switch spec.pick(0) {
-				case Some(_.KIND => KSetWord(_.equalsString("return") => true)):
+			spec.pick(0).extractIter(_.KIND => KSetWord(_.equalsString("return") => true), {
+				spec = spec.skip(1);
+				spec.pick(0).extract(Some(_.KIND => KBlock(b)), {
 					spec = spec.skip(1);
-	
-					switch spec.pick(0) {
-						case Some(_.KIND => KBlock(b)):
-							spec = spec.skip(1);
-							res.ret = Some(b.copy());
-						default:
-							throw "Missing return spec!";
-					}
-				default:
-			}
+					res.ret = Some(b.copy());
+				}, "Missing return spec!");
+			});
 		}
 		
-		switch spec.pick(0) {
-			case Some(_.KIND => KString(s)):
-				res.doc = Some(s.form());
-				spec = spec.skip(1);
-			default:
-		}
+		spec.pick(0).extractIter(_.KIND => KString(s), {
+			res.doc = Some(s.form());
+			spec = spec.skip(1);
+		});
 
 		getArgs(res.args);
 
 		getRet();
 
 		while(true) {
-			switch spec.pick(0) {
-				case Some(_.KIND => KRefinement(r)):
-					spec = spec.skip(1);
+			spec.pick(0).extractIter(_.KIND => KRefinement(r), {
+				spec = spec.skip(1);
+				
+				final refine: _Refine = {
+					name: r.name,
+					doc: spec.pick(0).extractMap(_.KIND => KString(s), {
+						spec = spec.skip(1);
+						s.form();
+					})
+				};
 
-					final refine: _Refine = {
-						name: r.name,
-						doc: switch spec.pick(0) {
-							case Some(_.KIND => KString(s)):
-								spec = spec.skip(1);
-								Some(s.form());
-							default:
-								None;
-						}
-					};
-					
-					getArgs(refine.args);
+				getArgs(refine.args);
 
-					res.refines.push(refine);
-				default:
-			}
+				res.refines.push(refine);
+			});
 		}
 
 		if(res.ret == None) {

@@ -34,4 +34,22 @@ class OptionTools {
 			case None: other;
 		};
 	}
+
+	public static macro function extractMap<T>(value: ExprOf<Option<T>>, pattern, expr) {
+		return macro {
+			switch($value) {
+				case Some($pattern): Some($expr);
+				default: None;
+			}
+		}
+	}
+
+	public static macro function extractIter<T>(value: ExprOf<Option<T>>, pattern, expr) {
+		return macro {
+			switch($value) {
+				case Some($pattern): $expr;
+				default: $a{[]};
+			}
+		}
+	}
 }

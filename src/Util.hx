@@ -80,4 +80,13 @@ class Util {
 			}
 		};
 	}
+
+	public static macro function match(value, pattern, expr, ?otherwise) {
+		return macro {
+			switch($value) {
+				case $pattern: $expr;
+				default: $otherwise;
+			}
+		}
+	}
 }
