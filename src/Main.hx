@@ -16,9 +16,23 @@ class Main {
 		@:privateAccess Runtime.registerDatatypes(types.base.Context.GLOBAL);
 
 		types.base.Context.GLOBAL.add(
-			"either",
+			"make",
+			new types.Action(
+				None,
+				[
+					{name: "type", quoting: QVal},
+					{name: "spec", quoting: QVal}
+				],
+				[],
+				None,
+				AMake(runtime.actions.Make.call)
+			)
+		);
+
+		types.base.Context.GLOBAL.add(
+			"either",/*
 			types.Unset.UNSET
-		).setValue(
+		).setValue(*/
 			new types.Native(
 				None,
 				[
