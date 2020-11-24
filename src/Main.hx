@@ -13,6 +13,8 @@ class Main {
 		
 		//trace(Do.call(types.String.fromRed("123 [456 #abc] \"banana\""), Do.defaultOptions));
 
+		@:privateAccess Runtime.registerDatatypes(types.base.Context.GLOBAL);
+
 		types.base.Context.GLOBAL.add(
 			"either",
 			types.Unset.UNSET
