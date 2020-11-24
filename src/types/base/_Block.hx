@@ -51,7 +51,7 @@ class _Block extends _SeriesOf<Value> {
 	override public function copy() {
 		return this.cloneBlock(
 			this.values.slice(this.index),
-			this.length,
+			0,
 			this.newlines
 				.filter(nl -> nl >= this.index)
 				.map(nl -> nl - this.index)

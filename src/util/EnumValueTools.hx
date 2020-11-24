@@ -8,13 +8,7 @@ class EnumValueTools {
 		return macro {
 			switch($value) {
 				case $pattern: $expr;
-				default: throw ${
-					if(otherwise == null) {
-						macro "Error!";
-					} else {
-						otherwise;
-					}
-				}
+				default: ${otherwise != null ? otherwise : macro throw "Error!"};
 			}
 		}
 	}
@@ -23,7 +17,7 @@ class EnumValueTools {
 		return macro {
 			switch($value) {
 				case $pattern: $expr;
-				default: $otherwise;
+				default: ${otherwise != null ? otherwise : macro $b{[]}};
 			}
 		}
 	}

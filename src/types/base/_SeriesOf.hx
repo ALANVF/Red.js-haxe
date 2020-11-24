@@ -74,7 +74,7 @@ class _SeriesOf<T: Value> extends Value implements ISeriesOf<T> {
 	}
 
 	public function copy() {
-		return this.clone(this.values.slice(this.index), this.length);
+		return this.clone(this.values.slice(this.index), 0);
 	}
 
 	public function head() {
@@ -82,7 +82,7 @@ class _SeriesOf<T: Value> extends Value implements ISeriesOf<T> {
 	}
 
 	public function tail() {
-		return this.clone( this.values, this.absLength - 1);
+		return this.clone(this.values, this.absLength - 1);
 	}
 	
 	public function isHead() {

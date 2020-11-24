@@ -85,7 +85,16 @@ class Util {
 		return macro {
 			switch($value) {
 				case $pattern: $expr;
-				default: $otherwise;
+				default: ${otherwise != null ? otherwise : macro $b{[]}};
+			}
+		}
+	}
+
+	public static macro function extract(value, pattern, expr) {
+		return macro {
+			switch($value) {
+				case $pattern: $expr;
+				default: throw "Match error!";
 			}
 		}
 	}

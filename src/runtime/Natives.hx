@@ -1,9 +1,7 @@
 package runtime;
 
-import runtime.natives.If;
 import types.Value;
 import types.Native;
-//import types.Native.NativeFn;
 
 class Natives {
 	public static function callNative(native: Native, args: Array<Value>, refines: Map<String, Array<Value>>) {
