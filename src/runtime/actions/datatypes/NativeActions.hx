@@ -17,7 +17,7 @@ class NativeActions extends ValueActions {
 		);
 	}
 
-	override public function make(_: Option<Value>, spec: Value): Native {
+	override public function make(_, spec: Value) {
 		return spec.KIND.extract(KBlock(b),
 			match([for(v in b) b.KIND], [KBlock(b), KIssue(_.name => "get-definition"), KWord(_.name => name)],
 				match(this._makeSpec(b), {doc: doc, args: args, refines: refines, ret: ret},

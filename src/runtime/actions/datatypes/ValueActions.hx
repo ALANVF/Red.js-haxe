@@ -1,5 +1,6 @@
 package runtime.actions.datatypes;
 
+import types.base.CompareResult;
 import types.base.ComparisonOp;
 import types.base._Path;
 import types.base._Number;
@@ -23,7 +24,7 @@ class ValueActions {
 	public function modify(target: Value, field: Word, value: Value, options: AModifyOptions): Value invalid();
 
 	public function evalPath(parent: Value, element: Value, value: Option<Value>, path: _Path, isCase: Bool): Value invalid();
-	public function compare(value1: Value, value2: Value, op: ComparisonOp): Logic invalid();
+	public function compare(value1: Value, value2: Value, op: ComparisonOp): CompareResult invalid();
 
 	/*-- Scalar actions --*/
 	public function absolute(value: Value): Value invalid();
