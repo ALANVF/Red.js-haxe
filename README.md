@@ -1,3 +1,5 @@
+Note: this repository is no longer needed, as it has been moved back to the main [Red.js repo](https://github.com/ALANVF/Red.js).
+
 # Red.js (Haxe)
 
 This is a temporary repository that will be used while Red.js' source is being converted from TypeScript to Haxe.
